@@ -4,10 +4,10 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=~/.vim/bundle/neobundle.vim/
+set runtimepath^=/Users/kimuray/.vim/bundle/neobundle.vim/
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('/Users/kimuray/.vim/bundle/'))
 
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -39,7 +39,14 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'maxmellon/vim-jsx-pretty'
+NeoBundle 'Shougo/context_filetype.vim'
+NeoBundle 'osyo-manga/vim-precious'
 
+" optional
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'othree/es.next.syntax.vim'
 " You can specify revision/branch/tag.
 "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
@@ -53,6 +60,27 @@ NeoBundle 'Shougo/vimproc', {
 "  \ 'insert' : 1,
 "  \ 'filetypes': 'ruby',
 "  \ }}
+
+NeoBundleLazy 'alpaca-tc/neorspec.vim', {
+      \ 'depends' : ['alpaca-tc/vim-rails', 'tpope/vim-dispatch'],
+      \ 'autoload' : {
+      \   'commands' : ['RSpec', 'RSpecAll', 'RSpecCurrent', 'RSpecNearest', 'RSpecRetry']
+      \ }}
+
+NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+      \ 'depends': 'Shougo/vimproc',
+      \ 'autoload' : {
+      \   'commands': ['AlpacaTagsUpdate', 'AlpacaTagsSet', 'AlpacaTagsBundle']
+      \ }}
+
+NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }}
+
+NeoBundleLazy 'edsono/vim-matchit', { 'autoload' : {
+      \ 'filetypes': 'ruby',
+      \ 'mappings' : ['nx', '%'] }}
 
 " Required:
 call neobundle#end()
@@ -112,6 +140,7 @@ colorscheme hybrid
 
 " 基本設定
 set encoding=utf-8
+set clipboard+=unnamed
 set number
 set ruler
 set cursorline
@@ -127,6 +156,8 @@ set virtualedit=block
 set shiftwidth=2
 set autoindent
 set guifont=Ricty\ for\ Powerline:h18
+
+autocmd BufNewFile,BufRead *.vue set filetype=html
 
 " key mapping
 " tabページ, windowのkeymap
@@ -183,6 +214,11 @@ call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 let g:unite_enable_start_insert = 1
 let g:unite_enable_ignore_case  = 1
 let g:unite_enable_smart_case   = 1
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 " grep検索
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
@@ -222,3 +258,19 @@ augroup MyXML
  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
  autocmd Filetype erb inoremap <buffer> </ </<C-x><C-o>
 augroup END
+
+" alpacatags
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost Gemfile AlpacaTagsBundle
+    autocmd BufEnter * AlpacaTagsSet
+    " 毎回保存と同時更新する場合はコメントを外す
+    " autocmd BufWritePost * TagsUpdate
+  endif
+augroup END
+
+if !exists('loaded_matchit')
+  " matchitを有効化
+  runtime macros/matchit.vim
+endif
