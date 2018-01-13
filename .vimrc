@@ -46,6 +46,7 @@ NeoBundle 'osyo-manga/vim-precious'
 NeoBundle 'vim-scripts/ruby-matchit'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'closetag.vim'
 
 " optional
 NeoBundle 'othree/javascript-libraries-syntax.vim'
@@ -261,14 +262,6 @@ let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R -f .Gemfile.lock.tag
 set tags+=.tags
 set tags+=.Gemfile.lock.tags
 
-" html閉じタグ自動補完
-augroup MyXML
- autocmd!
- autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
- autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
- autocmd Filetype erb inoremap <buffer> </ </<C-x><C-o>
-augroup END
-
 " alpacatags
 augroup AlpacaTags
   autocmd!
@@ -291,3 +284,7 @@ let g:ref_refe_cmd = $HOME.'/.rbenv/shims/refe'
 let g:ref_refe_version = 2
 
 nnoremap ,rr :<C-U>Ref refe<Space>
+
+" close tag
+inoremap <C-]> <C-R>=GetCloseTag()<CR><ESC>F<i
+map <C-]> a<C-]><ESC>
