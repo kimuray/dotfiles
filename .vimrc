@@ -43,6 +43,9 @@ NeoBundle 'othree/yajs.vim'
 NeoBundle 'maxmellon/vim-jsx-pretty'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
+NeoBundle 'vim-scripts/ruby-matchit'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'basyura/unite-rails'
 
 " optional
 NeoBundle 'othree/javascript-libraries-syntax.vim'
@@ -77,10 +80,6 @@ NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
       \ 'autoload' : {
       \   'insert' : 1,
       \ }}
-
-NeoBundleLazy 'edsono/vim-matchit', { 'autoload' : {
-      \ 'filetypes': 'ruby',
-      \ 'mappings' : ['nx', '%'] }}
 
 " Required:
 call neobundle#end()
@@ -133,9 +132,9 @@ endfunction
 
 
 " 色設定
+:syntax on
 autocmd ColorScheme * highlight LineNr ctermfg=252
 set background=dark
-syntax enable
 colorscheme hybrid
 
 " 基本設定
@@ -229,6 +228,17 @@ nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W
 " grep検索結果の再呼出
 nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
 
+" unite-rails
+noremap :rc :<C-u>Unite rails/controller<CR>
+noremap :rm :<C-u>Unite rails/model<CR>
+noremap :rv :<C-u>Unite rails/view<CR>
+noremap :rh :<C-u>Unite rails/helper<CR>
+noremap :rs :<C-u>Unite rails/stylesheet<CR>
+noremap :rj :<C-u>Unite rails/javascript<CR>
+noremap :rr :<C-u>Unite rails/route<CR>
+noremap :rg :<C-u>Unite rails/gemfile<CR>
+noremap :rt :<C-u>Unite rails/spec<CR>
+
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
@@ -274,3 +284,10 @@ if !exists('loaded_matchit')
   " matchitを有効化
   runtime macros/matchit.vim
 endif
+
+" ref.vim
+let g:ref_open = 'vsplit'
+let g:ref_refe_cmd = $HOME.'/.rbenv/shims/refe'
+let g:ref_refe_version = 2
+
+nnoremap ,rr :<C-U>Ref refe<Space>
