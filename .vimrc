@@ -1,144 +1,10 @@
-" package
 if &compatible
   set nocompatible
 endif
 
-" Required:
-set runtimepath^=/Users/kimuray/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('/Users/kimuray/.vim/bundle/'))
-
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle "kana/vim-submode"
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'open-browser.vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'tell-k/vim-browsereload-mac'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'szw/vim-tags'
-NeoBundle 'vim-scripts/grep.vim'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'othree/yajs.vim'
-NeoBundle 'maxmellon/vim-jsx-pretty'
-NeoBundle 'Shougo/context_filetype.vim'
-NeoBundle 'osyo-manga/vim-precious'
-NeoBundle 'vim-scripts/ruby-matchit'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'basyura/unite-rails'
-NeoBundle 'closetag.vim'
-
-" optional
-NeoBundle 'othree/javascript-libraries-syntax.vim'
-NeoBundle 'othree/es.next.syntax.vim'
-" You can specify revision/branch/tag.
-"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'mac' : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak',
-  \    },
-  \ }
-"NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', { 'autoload' : {
-"  \ 'insert' : 1,
-"  \ 'filetypes': 'ruby',
-"  \ }}
-
-NeoBundleLazy 'alpaca-tc/neorspec.vim', {
-      \ 'depends' : ['alpaca-tc/vim-rails', 'tpope/vim-dispatch'],
-      \ 'autoload' : {
-      \   'commands' : ['RSpec', 'RSpecAll', 'RSpecCurrent', 'RSpecNearest', 'RSpecRetry']
-      \ }}
-
-NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-      \ 'depends': 'Shougo/vimproc',
-      \ 'autoload' : {
-      \   'commands': ['AlpacaTagsUpdate', 'AlpacaTagsSet', 'AlpacaTagsBundle']
-      \ }}
-
-NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }}
-
-" Required:
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" .や::を入力したときにオムニ補完が有効になるようにする
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
-" 環境変数RSENSE_HOMEに'/usr/local/bin/rsense'を指定しても動く
-let g:neocomplete#sources#rsense#home_directory = '/usr/local/bin/rsense'
-
-let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec/"
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------e
-
-" Git mark
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-
-let g:lightline = {
-      \ 'component_function': {
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \ },
-      \ }
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-
-" 色設定
-:syntax on
-autocmd ColorScheme * highlight LineNr ctermfg=252
-set background=dark
-colorscheme hybrid
-
-" 基本設定
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+set backspace=indent,eol,start
+" basic
 set encoding=utf-8
 set clipboard+=unnamed
 set number
@@ -155,13 +21,8 @@ set hidden
 set virtualedit=block
 set shiftwidth=2
 set autoindent
-set guifont=Ricty\ for\ Powerline:h18
 
-autocmd BufNewFile,BufRead *.vue set filetype=html
-
-" key mapping
-" tabページ, windowのkeymap
-nnoremap <silent><C-e> :NERDTreeTabsToggle<CR>
+" window
 nnoremap s <Nop>
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
@@ -181,110 +42,154 @@ nnoremap sO <C-w>=
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
 nnoremap st :<C-u>tabnew<CR>
-nnoremap sT :<C-u>Unite tab<CR>
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
-" ブラウザリロード
-let g:returnApp = "iTerm"
-nmap <Space>bc :ChromeReloadStart<CR>
-nmap <Space>bC :ChromeReloadStop<CR>
-nmap <Space>bf :FirefoxReloadStart<CR>
-nmap <Space>bF :FirefoxReloadStop<CR>
-nmap <Space>bs :SafariReloadStart<CR>
-nmap <Space>bS :SafariReloadStop<CR>
-nmap <Space>bo :OperaReloadStart<CR>
-nmap <Space>bO :OperaReloadStop<CR>
-nmap <Space>ba :AllBrowserReloadStart<CR>
-nmap <Space>bA :AllBrowserReloadStop<CR>
 
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+" dein
+call dein#begin(expand('~/.vim/dein'))
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('tpope/vim-endwise')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('Shougo/denite.nvim')
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('w0rp/ale')
+call dein#add('jmcantrell/vim-virtualenv')
+call dein#add('scrooloose/nerdtree')
+call dein#add('tpope/vim-fugitive')
+call dein#add('lighttiger2505/gtags.vim')
+call dein#add('thinca/vim-qfreplace')
+call dein#add('jsfaint/gen_tags.vim')
+call dein#add('nathanaelkane/vim-indent-guides')
+call dein#add('tpope/vim-rails')
+call dein#add('zchee/deoplete-jedi')
+call dein#add('osyo-manga/vim-monster')
+call dein#add('cohama/lexima.vim')
+call dein#end()
 
-" Unite設定
-let g:unite_enable_start_insert = 1
-let g:unite_enable_ignore_case  = 1
-let g:unite_enable_smart_case   = 1
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
-" grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-
-" カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-
-" grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-
-" unite-rails
-noremap :rc :<C-u>Unite rails/controller<CR>
-noremap :rm :<C-u>Unite rails/model<CR>
-noremap :rv :<C-u>Unite rails/view<CR>
-noremap :rh :<C-u>Unite rails/helper<CR>
-noremap :rs :<C-u>Unite rails/stylesheet<CR>
-noremap :rj :<C-u>Unite rails/javascript<CR>
-noremap :rr :<C-u>Unite rails/route<CR>
-noremap :rg :<C-u>Unite rails/gemfile<CR>
-noremap :rt :<C-u>Unite rails/spec<CR>
-
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
+if dein#check_install()
+  call dein#install()
 endif
 
-" grep設定
-nnoremap <expr> gr ':Rgrep<CR>'
-let Grep_Skip_Dirs = '.svn .git'  "無視するディレクトリ
-let Grep_Default_Options = '-I'   "バイナルファイルがgrepしない
-let Grep_Skip_Files = '*.bak *~'  "バックアップファイルを無視する
-if executable('jvgrep')
-  set grepprg=jvgrep
-endif
+" denite configure ref: http://replicity.hateblo.jp/entry/2017/06/03/140731
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'default_opts',['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
 
-" ctags設定
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -f .tags -R . 2>/dev/null"
-let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R -f .Gemfile.lock.tags `bundle show --paths` 2>/dev/null"
-set tags+=.tags
-set tags+=.Gemfile.lock.tags
+" denite display
+call denite#custom#option('default', 'prompt', '>')
+call denite#custom#option('default', 'direction', 'top')
 
-" alpacatags
-augroup AlpacaTags
-  autocmd!
-  if exists(':Tags')
-    autocmd BufWritePost Gemfile AlpacaTagsBundle
-    autocmd BufEnter * AlpacaTagsSet
-    " 毎回保存と同時更新する場合はコメントを外す
-    " autocmd BufWritePost * TagsUpdate
-  endif
-augroup END
+" denite mapping
+call denite#custom#map('insert', '<esc>', '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('normal', '<esc>', '<denite:quit>', 'noremap')
+call denite#custom#map('normal', '<C-N>', '<denite:move_to_next_line>')
+call denite#custom#map('normal', '<C-P>', '<denite:move_to_previous_line>')
+call denite#custom#map('insert', '<C-N>', '<denite:move_to_next_line>')
+call denite#custom#map('insert', '<C-P>', '<denite:move_to_previous_line>')
+call denite#custom#map('insert', '<C-J>', '<denite:assign_next_text>')
+call denite#custom#map('insert', '<C-K>', '<denite:assign_previous_text>')
+call denite#custom#map('insert', '<C-S>', '<denite:do_action:split>', 'noremap')
+call denite#custom#map('insert', '<C-V>', '<denite:do_action:vsplit>', 'noremap')
+call denite#custom#map('insert', '<C-O>', '<denite:do_action:tabopen>')
+noremap <C-G> :Denite grep<CR>
+noremap <C-P> :Denite buffer<CR>
+noremap <C-N> :Denite -buffer-name=file file<CR>
+noremap <C-Z> :Denite file_old<CR>
+noremap <C-C> :Denite file_rec<CR>
+nnoremap sB :<C-u>Denite buffer -buffer-name=file<CR>
+nnoremap <silent> <Leader><C-f> :<C-u>Denite line<CR>
+nnoremap <silent> <expr><Space>l ":<C-u>DeniteWithCursorWord line<CR>"
 
-if !exists('loaded_matchit')
-  " matchitを有効化
-  runtime macros/matchit.vim
-endif
+" NEEDTREE
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
-" ref.vim
-let g:ref_open = 'vsplit'
-let g:ref_refe_cmd = $HOME.'/.rbenv/shims/refe'
-let g:ref_refe_version = 2
+" deoplete
+let g:deoplete#enable_at_startup = 1
 
-nnoremap ,rr :<C-U>Ref refe<Space>
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_theme = 'badwolf'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#error_symbol = 'E:'
+let g:airline#extensions#ale#warning_symbol = 'W:'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
-" close tag
-inoremap <C-]> <C-R>=GetCloseTag()<CR><ESC>F<i
-map <C-]> a<C-]><ESC>
+" get_tags
+let g:gen_tags#ctags_auto_gen = 1
+let g:gen_tags#gtags_auto_gen = 1
+
+" ALE
+let g:ale_sign_error = '⨉'
+let g:ale_sign_warning = '⚠'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_column_always = 1
+
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
+
+" enable linter
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'ruby': ['ruby', 'rubocop'],
+\   'javascript': ['eslint'],
+\}
+
+nmap [ale] <Nop>
+map <C-k> [ale]
+nmap <silent> [ale]<C-P> <Plug>(ale_previous)
+nmap <silent> [ale]<C-N> <Plug>(ale_next)
+
+" gtags
+let g:Gtags_Auto_Map = 0
+let g:Gtags_OpenQuickfixWindow = 1
+
+" indent_guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=237
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=238
+hi LineNr ctermbg=240 ctermfg=0
+hi CursorLineNr ctermbg=4 ctermfg=0
+
+" deoplete-jedi
+let g:deoplete#sources#jedi#python_path = '~/.pyenv/shims/python'
+
+" vim-monster
+let g:monster#completion#backend = 'solargraph'
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" Or let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+let g:deoplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
