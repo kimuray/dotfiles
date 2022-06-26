@@ -1,0 +1,35 @@
+{
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "vscode-icons",
+  "editor.bracketPairColorization.enabled": true,
+
+  // vim
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.visualstar": true,
+  "vim.foldfix": true,
+  "vim.normalModeKeyBindings": [{ "before": ["<C-d>"], "after": ["g", "b"] }],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["<C-d>"],
+      "after": ["g", "b"]
+    }
+  ],
+  "workbench.editor.enablePreview": false,
+  "ruby.intellisense": "rubyLocate",
+  "[ruby]": {
+    "editor.tabSize": 2
+  },
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "go.toolsManagement.autoUpdate": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "prettier.jsxSingleQuote": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.fontFamily": "'Hack Nerd Font', Menlo, Monaco, 'Courier New', monospace"
+}
+
